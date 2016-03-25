@@ -5,7 +5,7 @@
         public void Run()
         {
             Font font18 = new Font("data/Joystix.ttf", 18);
-            Image player = new Image("data/player.png");
+            Image player = new Image("data/PantallaInicio/InicioPlayer.png");
             Image floor = new Image("data/tileBrick01.png");
             int playerX = 500;
             int playerY = 250;

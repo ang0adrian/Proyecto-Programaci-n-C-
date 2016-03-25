@@ -14,18 +14,35 @@
 
         public Player(Game g)
         {
+            //Andar Izquierda
             LoadSequence(LEFT,
-                new string[] { "data/player.png", "data/player2.png" });
+                new string[] { "data/Jugador/MoverIzquirda/PlayerIzquierda01.png" , "data/Jugador/MoverIzquirda/PlayerIzquierda02.png"
+                    ,"data/Jugador/MoverIzquirda/PlayerIzquierda03.png", "data/Jugador/MoverIzquirda/PlayerIzquierda04.png", "data/Jugador/MoverIzquirda/PlayerIzquierda05.png"
+                        ,"data/Jugador/MoverIzquirda/PlayerIzquierda01.png"});
+            //Andar Derecha
             LoadSequence(RIGHT,
-                new string[] { "data/player.png", "data/player2.png" });
+                new string[] { "data/Jugador/MoverDerecha/PlayerDerecha01.png", "data/Jugador/MoverDerecha/PlayerDerecha02.png"
+                    ,"data/Jugador/MoverDerecha/PlayerDerecha03.png","data/Jugador/MoverDerecha/PlayerDerecha04.png","data/Jugador/MoverDerecha/PlayerDerecha05.png"
+                        ,"data/Jugador/MoverDerecha/PlayerDerecha06.png"});
+
+            LoadSequence(Death,
+               new string[] { "data/Jugador/Muerte/Muerte01.png", "data/Jugador/Muerte/Muerte02.png", "data/Jugador/Muerte/Muerte03.png",
+                    "data/Jugador/Muerte/Muerte04.png", "data/Jugador/Muerte/Muerte05.png", "data/Jugador/Muerte/Muerte06.png", "data/Jugador/Muerte/Muerte07.png",
+                        "data/Jugador/Muerte/Muerte08.png", "data/Jugador/Muerte/Muerte09.png", "data/Jugador/Muerte/Muerte10.png", "data/Jugador/Muerte/Muerte11.png",
+                            "data/Jugador/Muerte/Muerte12.png", "data/Jugador/Muerte/Muerte13.png", "data/Jugador/Muerte/Muerte14.png", "data/Jugador/Muerte/Muerte15.png",
+                                "data/Jugador/Muerte/Muerte16.png","data/Jugador/Muerte/Muerte16.png"});
+
+
             ChangeDirection(LEFT);
 
-            x = 50;
-            y = 120;
-            xSpeed = 4;
+            
+
+            x = 200;
+            y = 300;
+            xSpeed = 6;
             ySpeed = 4;
-            width = 50;
-            height = 107;
+            width = 35;
+            height = 60;
 
             stepsTillNextFrame = 6;
 
@@ -35,11 +52,28 @@
             falling = false;
             myGame = g;
         }
+        public void RestartPosition (int lives)
+        {
+            if (lives>=1)
+            {
+                x = 200;
+                y = 300;
+                Hardware.ScrollTo(450, 0);
+            }
 
+            
+        }
+
+        public void death ()
+        {
+                ChangeDirection(Death);
+                NextFrame();    
+        }
         public void MoveRight()
         {
             if (myGame.IsValidMove(x + xSpeed, y, x + width + xSpeed, y + height))
             {
+                Hardware.ScrollHorizontally((short)-xSpeed);
                 x += xSpeed;
                 ChangeDirection(RIGHT);
                 NextFrame();
@@ -48,6 +82,7 @@
 
         public void MoveLeft()
         {
+            Hardware.ScrollHorizontally((short)xSpeed);
             if (myGame.IsValidMove(x - xSpeed, y, x + width - xSpeed, y + height))
             {
                 x -= xSpeed;
@@ -85,6 +120,7 @@
         // Starts the jump sequence to the right
         public void JumpRight()
         {
+            Hardware.ScrollHorizontally(-3);
             Jump();
             jumpXspeed = xSpeed;
         }
@@ -93,6 +129,7 @@
         // Starts the jump sequence to the left
         public void JumpLeft()
         {
+            Hardware.ScrollHorizontally(3);
             Jump();
             jumpXspeed = -xSpeed;
         }
@@ -121,8 +158,8 @@
 
                 // If the player can still move, let's do it
                 if (myGame.IsValidMove(
-                    nextX, nextY + height - ySpeed,
-                    nextX + width, nextY + height))
+                     nextX, nextY,
+                     nextX + width, nextY + height))
                 {
                     x = nextX;
                     y = nextY;

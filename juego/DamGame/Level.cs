@@ -7,54 +7,92 @@
         byte leftMargin, topMargin;
         string[] levelDescription;
 
-        Image brick1, brick2, brick3, 
-            floor, floorL, floorR, ceiling,
-            backB1, backB2, torch1, torch2,
-            pit1, pit2, pit3, endScreen;
+        Image fondo, superior, inferior, izquierda, derecha, fondopared, esquinainferiorderecha
+                , esquinainferiorizquierda, endScreen, puertaderecha1, puertaderecha2, puertaderecha3
+                     , puertaderechaderecha1, puertaderechaderecha2, puertaderechaderecha3, isla1, isla2, isla3, isla4
+                        , muroDeCarne1, muroDeCarne2, muroDeCarne3;
+
 
         public Level()
         {
-            tileWidth = 80;
-            tileHeight = 64;
-            levelWidth = 10;
-            levelHeight = 10;
+            tileWidth = 16;
+            tileHeight = 16;
+            levelWidth = 150;
+            levelHeight = 38;
             leftMargin = 80;
             topMargin = 50;
-            
-            // 0 = Empty, 1 = Brick1, 2 = Brick2, 3 = Brick3, 4 = Normal floor
-            // 5 = Floor left, 6= right, 7 = Ceiling
-            // 10=Upper back brick, 11=lower, 
-            // 13 =upper torch 1, 14=2, 15=lower
-            // 20=pit side 1, 21=2, 22=3
-            levelDescription = new string[10]
-            {
-                "__________",
-                ".   .   . ",
-                ",   ,   , ",
-                "          ",
-                ".  ^.^  . ",
-                ",  v,v  , ",
-                "-------> <",
-                "1111111$ 1",
-                "2222222% 2",
-                "3333333& 3",
-            };
 
-            brick1 = new Image("data\\tileBrick01.png");
-            brick2 = new Image("data\\tileBrick02.png");
-            brick3 = new Image("data\\tileBrick03.png");
-            floor = new Image("data\\tileFloor1.png");
-            floorL = new Image("data\\tileFloorLeft.png");
-            floorR = new Image("data\\tileFloorPit.png");
-            ceiling = new Image("data\\ceiling.png");
-            backB1 = new Image("data\\backBrick01.png");
-            backB2 = new Image("data\\backBrick02.png");
-            torch1 = new Image("data\\tileTorch1.png");
-            torch2 = new Image("data\\tileTorch2a.png");
-            pit1 = new Image("data\\tilePit01.png");
-            pit2 = new Image("data\\tilePit02.png");
-            pit3 = new Image("data\\tilePit03.png");
+            levelDescription = new string[38]
+            {
+                "------------------------------------------------------------------------------------------------------------------------------------------------------",
+                "--____________________________________________________________________________________________-----________________________----_____________________--",
+                "->                                                                                            <--->                        <-->                     <-",
+                "->                                                                                            <--->                        <-->                     <-",
+                "->                                                                                            <--->                        <-->                     <-",
+                "->                                                                                            <--->                        <-->                     <-",
+                "->                                                                                            <--->                        <-->                     <-",
+                "->                                                                                            <--->       q11w             <-->                     <-",
+                "->                                                                                            <--->       <-->             <-->                     <-",
+                "->                                                                                            <--->       <-->             <-->                     <-",
+                "->                                                                                        q1112---311111112-->             <-->                     <-",
+                "->                                                                                        <------------------>             <-->                     <-",
+                "->                                                                                        <------------------>             <-->                     <-",
+                "->                                                                                        e__________________r             <-->                     <-",
+                "->                                                                                                                         <-->                     <-",
+                "->                                                                                                                         <-->                     <-",
+                "->                                                                                                                         <-->                     <-",
+                "->                                                                                                                         <-->                     <-",
+                "->                                                                                                                         <-->                     <-",
+                "->                                                                                                                         <-->                     <-",
+                "->                                                                                                                         <-->                     <-",
+                "->                                                                                                          q111111111111112-->                     <-",
+                "->        q11w                                                                                              <----------------->        q11w         <-",
+                "->        <-->                                                                                              <----------------->        <-->         <-",
+                "->        <-->                                                                                              <----------------->        <-->         <-",
+                "-3111111112-->                      q1111111111111111111111111w                                             <-----------------3111111112-->         <-",
+                "------------->                      <------------------------->                                             9cvvvvvvvvv<------------------>         <-",
+                "------------->                      <------------------------->                                             8xbbbbbbbbb<------------------>         <-",
+                "--___________r                      <------------------------->                                             7znnnnnnnnn<-----_____________r         <-",
+                "->                                  <------------------------->                                                        <---->                       <-",
+                "->                                  <------------------------->                                                        e____r                       <-",
+                "->                                  <------___________________r                                                                                     <-",
+                "->                                  <----->                                                                                                         <-",
+                "->                  q11w            <----->                                                                                                         <-",
+                "->                  <-->            <----->                                                                                                         <-",
+                "->                  <-->            <----->                                                                                                         <-",
+                "-31111111111111111112--31111111111112-----31111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111112-",
+                "------------------------------------------------------------------------------------------------------------------------------------------------------",
+            };
+            esquinainferiorderecha = new Image("data\\EsquinaInferiorDerecha.png");
+            esquinainferiorizquierda = new Image("data\\EsquinaInferiorIzquierda.png");
+            fondo = new Image("data\\Fondo.png");
+            superior = new Image("data\\Superior.png");
+            inferior = new Image("data\\Inferior.png");
+            izquierda = new Image("data\\Izquierda.png");
+            derecha = new Image("data\\Derecha.png");
+            fondopared = new Image("data\\FondoPared.png");
             endScreen = new Image("data\\welcomeText.png");
+            //Hueco que simula una puerta
+            puertaderecha1 = new Image("data\\PuertaDerecha1.png");
+            puertaderecha2 = new Image("data\\PuertaDerecha2.png");
+            puertaderecha3 = new Image("data\\PuertaDerecha3.png");
+            //Muro he hay entre la "puerta" y el muro
+            puertaderechaderecha1 = new Image("data\\PuertaDerechaDerecha1.png");
+            puertaderechaderecha2 = new Image("data\\PuertaDerechaDerecha2.png");
+            puertaderechaderecha3 = new Image("data\\PuertaDerechaDerecha3.png");
+            //Muro 
+            muroDeCarne1 = new Image("data\\MuroCarne\\PuertaDerechaDerecha1.png");
+            muroDeCarne2 = new Image("data\\MuroCarne\\PuertaDerechaDerecha2.png");
+            muroDeCarne3 = new Image("data\\MuroCarne\\PuertaDerechaDerecha3.png");
+            //Islas 
+            //Partiendo de abajo
+            //Esquina superior Izquierda.
+            isla1 = new Image("data\\IslaAbajo1.png");
+            //Esquina superior derecha.
+            isla2 = new Image("data\\IslaAbajo2.png");
+            //Partiendo desde los laterales 
+            isla3 = new Image("data\\IslaAbajo3.png");
+            isla4 = new Image("data\\IslaAbajo4.png");
         }
 
         public void DrawOnHiddenScreen()
@@ -66,20 +104,31 @@
                     int yPos = topMargin + row * tileHeight;
                     switch (levelDescription[row][col])
                     {
-                        case '1': Hardware.DrawHiddenImage(brick1, xPos, yPos); break;
-                        case '2': Hardware.DrawHiddenImage(brick2, xPos, yPos); break;
-                        case '3': Hardware.DrawHiddenImage(brick3, xPos, yPos); break;
-                        case '-': Hardware.DrawHiddenImage(floor, xPos, yPos); break;
-                        case '<': Hardware.DrawHiddenImage(floorL, xPos, yPos); break;
-                        case '>': Hardware.DrawHiddenImage(floorR, xPos, yPos); break;
-                        case '_': Hardware.DrawHiddenImage(ceiling, xPos, yPos); break;
-                        case '.': Hardware.DrawHiddenImage(backB1, xPos, yPos); break;
-                        case ',': Hardware.DrawHiddenImage(backB2, xPos, yPos); break;
-                        case '^': Hardware.DrawHiddenImage(torch2, xPos, yPos); break;
-                        case 'v': Hardware.DrawHiddenImage(torch1, xPos, yPos); break;
-                        case '$': Hardware.DrawHiddenImage(pit1, xPos, yPos); break;
-                        case '%': Hardware.DrawHiddenImage(pit2, xPos, yPos); break;
-                        case '&': Hardware.DrawHiddenImage(pit3, xPos, yPos); break;
+                        case '-': Hardware.DrawHiddenImage(fondopared, xPos, yPos); break;
+                        case '_': Hardware.DrawHiddenImage(superior, xPos, yPos); break;
+                        case '1': Hardware.DrawHiddenImage(inferior, xPos, yPos); break;
+                        case '>': Hardware.DrawHiddenImage(izquierda, xPos, yPos); break;
+                        case '<': Hardware.DrawHiddenImage(derecha, xPos, yPos); break;
+                        case ' ': Hardware.DrawHiddenImage(fondo, xPos, yPos); break;
+                        case '2': Hardware.DrawHiddenImage(esquinainferiorderecha, xPos, yPos); break;
+                        case '3': Hardware.DrawHiddenImage(esquinainferiorizquierda, xPos, yPos); break;
+                        //Puerta
+                        case '7': Hardware.DrawHiddenImage(puertaderecha1, xPos, yPos); break;
+                        case '8': Hardware.DrawHiddenImage(puertaderecha2, xPos, yPos); break;
+                        case '9': Hardware.DrawHiddenImage(puertaderecha3, xPos, yPos); break;
+                        //Entre la puerta y el muro
+                        case 'c': Hardware.DrawHiddenImage(puertaderechaderecha1, xPos, yPos); break;
+                        case 'x': Hardware.DrawHiddenImage(puertaderechaderecha2, xPos, yPos); break;
+                        case 'z': Hardware.DrawHiddenImage(puertaderechaderecha3, xPos, yPos); break;
+                        //  Isla Partiendo de abajo: La base es el 2;
+                        case 'w': Hardware.DrawHiddenImage(isla1, xPos, yPos); break;
+                        case 'q': Hardware.DrawHiddenImage(isla2, xPos, yPos); break;
+                        case 'e': Hardware.DrawHiddenImage(isla3, xPos, yPos); break;
+                        case 'r': Hardware.DrawHiddenImage(isla4, xPos, yPos); break;
+                        //Muro de Carne
+                        case 'v': Hardware.DrawHiddenImage(muroDeCarne1, xPos, yPos); break;
+                        case 'b': Hardware.DrawHiddenImage(muroDeCarne2, xPos, yPos); break;
+                        case 'n': Hardware.DrawHiddenImage(muroDeCarne3, xPos, yPos); break;
                     }
                 }
         }
@@ -91,22 +140,20 @@
                 {
                     char tileType = levelDescription[row][col];
                     // If we don't need to check collisions with this tile, we skip it
-                    if ((tileType == ' ')  // Empty space
-                            || (tileType == '.') || (tileType == ',')  // Bricks in the back
-                            || (tileType == 'v') || (tileType == '^')) // Torches
+                    if ((tileType == ' '))  // Empty space  
                         continue;
                     // Otherwise, lets calculate its corners and check rectangular collisions
                     int xPos = leftMargin + col * tileWidth;
                     int yPos = topMargin + row * tileHeight;
-                    int xLimit = leftMargin + (col+1) * tileWidth;
-                    int yLimit = topMargin + (row+1) * tileHeight;
+                    int xLimit = leftMargin + (col + 1) * tileWidth;
+                    int yLimit = topMargin + (row + 1) * tileHeight;
 
                     if (Sprite.CheckCollisions(
                             xMin, yMin, xMax, yMax,  // Coords of the sprite
                             xPos, yPos, xLimit, yLimit)) // Coords of current tile
                         return false;
-                    }
-            // If we have not collided with anything... then we can move
+                }
+            //If we have not collided with anything... then we can move
             return true;
         }
     }

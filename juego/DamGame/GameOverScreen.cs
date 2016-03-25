@@ -5,7 +5,7 @@
         public void Run()
         {
             Font font18 = new Font("data/Joystix.ttf", 18);
-            Image player = new Image("data/player.png");
+            Image player = new Image("data/PantallaInicio/InicioPlayer.png");
 
             do
             {

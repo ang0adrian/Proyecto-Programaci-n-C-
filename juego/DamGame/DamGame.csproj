@@ -47,19 +47,25 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BlueVirus.cs" />
     <Compile Include="CreditsScreen.cs" />
     <Compile Include="DamGame.cs" />
     <Compile Include="Enemy.cs" />
+    <Compile Include="EnemyEye.cs" />
     <Compile Include="Font.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="GameOverScreen.cs" />
+    <Compile Include="Heart.cs" />
     <Compile Include="Image.cs" />
     <Compile Include="Level.cs" />
+    <Compile Include="Objects.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Hardware.cs" />
+    <Compile Include="RedVirus.cs" />
     <Compile Include="Sprite.cs" />
     <Compile Include="WelcomeScreen.cs" />
+    <Compile Include="YellowVirus.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

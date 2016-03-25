@@ -21,7 +21,7 @@ class Sprite
     protected int stepsTillNextFrame;
     protected int currentStep;
 
-    protected byte numDirections = 11;
+    protected byte numDirections = 13;
     protected byte currentDirection;
     public const byte RIGHT = 0;
     public const byte LEFT = 1;
@@ -34,6 +34,8 @@ class Sprite
     public const byte APPEARING = 8;
     public const byte DISAPPEARING = 9;
     public const byte JUMPING = 9;
+    public const byte Death = 10;
+    public const byte Static = 11;
 
     public Sprite()
     {

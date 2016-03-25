@@ -1,0 +1,12 @@
+C:\Users\Adrian\Desktop\ProyectosV2\DamGame\bin\Debug\DamGame.exe.config
+C:\Users\Adrian\Desktop\ProyectosV2\DamGame\bin\Debug\DamGame.exe
+C:\Users\Adrian\Desktop\ProyectosV2\DamGame\bin\Debug\DamGame.pdb
+C:\Users\Adrian\Desktop\ProyectosV2\DamGame\obj\Debug\DamGame.csprojResolveAssemblyReference.cache
+C:\Users\Adrian\Desktop\ProyectosV2\DamGame\obj\Debug\DamGame.exe
+C:\Users\Adrian\Desktop\ProyectosV2\DamGame\obj\Debug\DamGame.pdb
+C:\Users\Adrian\Desktop\ProyectosV2\Juego\DamGame\bin\Debug\DamGame.exe.config
+C:\Users\Adrian\Desktop\ProyectosV2\Juego\DamGame\obj\Debug\DamGame.exe
+C:\Users\Adrian\Desktop\ProyectosV2\Juego\DamGame\obj\Debug\DamGame.pdb
+C:\Users\Adrian\Desktop\ProyectosV2\Juego\DamGame\bin\Debug\DamGame.exe
+C:\Users\Adrian\Desktop\ProyectosV2\Juego\DamGame\bin\Debug\DamGame.pdb
+C:\Users\Adrian\Desktop\ProyectosV2\Juego\DamGame\obj\Debug\DamGame.csprojResolveAssemblyReference.cache

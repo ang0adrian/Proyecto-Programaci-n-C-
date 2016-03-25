@@ -5,17 +5,23 @@
         public Enemy(int newX, int newY)
         {
             LoadSequence(LEFT, 
-                new string[] { "data/birdL1.png", "data/birdL2.png"});
+                new string[]  { "data/Enemigos/EnemigoAmarillo/MoverIzquierda/MoverIzquierda01.png", "data/Enemigos/EnemigoAmarillo/MoverIzquierda/MoverIzquierda02.png"
+                    , "data/Enemigos/EnemigoAmarillo/MoverIzquierda/MoverIzquierda03.png" , "data/Enemigos/EnemigoAmarillo/MoverIzquierda/MoverIzquierda04.png"});
             LoadSequence(RIGHT,
-                new string[] { "data/birdR1.png", "data/birdR2.png" });
+
+                new string[] { "data/Enemigos/EnemigoAmarillo/MoverDerecha/MoverDerecha01.png", "data/Enemigos/EnemigoAmarillo/MoverDerecha/MoverDerecha02.png"
+                    , "data/Enemigos/EnemigoAmarillo/MoverDerecha/MoverDerecha03.png" , "data/Enemigos/EnemigoAmarillo/MoverDerecha/MoverDerecha04.png"});
             ChangeDirection(LEFT);
+
+
             x = newX;
             y = newY;
             xSpeed = 3;
             ySpeed = 3;
-            width = 48;
-            height = 48;
+            width = 50;
+            height = 45;
             stepsTillNextFrame = 5;
+
         }
 
         public override void Move()

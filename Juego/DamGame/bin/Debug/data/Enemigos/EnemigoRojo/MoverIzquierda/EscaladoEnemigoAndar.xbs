@@ -1,0 +1,4 @@
+resize( 1 lanczos 35 70 0 1 0 )
+settings( 1 0 0 0 0 0 0 )
+output_path( C:\Users\Adrian\Desktop\ProyectosV2\Juego\DamGame\bin\Debug\data\Jugador\MoverIzquirda )
+output( png 0 6 )
