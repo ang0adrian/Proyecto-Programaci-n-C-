@@ -63,6 +63,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Hardware.cs" />
     <Compile Include="RedVirus.cs" />
+    <Compile Include="shoot.cs" />
     <Compile Include="Sprite.cs" />
     <Compile Include="WelcomeScreen.cs" />
     <Compile Include="YellowVirus.cs" />

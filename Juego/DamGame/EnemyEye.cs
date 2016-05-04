@@ -24,7 +24,7 @@ namespace DamGame
 
             x = newX;
             y = newY;
-            xSpeed = 3;
+            xSpeed = 10;
             ySpeed = 3;
             width = 50;
             height = 45;
@@ -38,7 +38,7 @@ namespace DamGame
         public override void Move()
         {
             // TO DO: Avoid magic numbers
-            if ((x > 1024 - width) || (x < 0) || (!myGame.IsValidMove(
+            if ((x > 2409 - width) || (x < 0) || (!myGame.IsValidMove(
                     x + xSpeed, y, x + width + xSpeed, y + height)))
                 xSpeed = -xSpeed;
             x = (short)(x + xSpeed);

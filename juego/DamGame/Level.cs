@@ -1,4 +1,5 @@
-﻿namespace DamGame
+﻿using System.Collections.Generic;
+namespace DamGame
 {
     class Level
     {
@@ -12,8 +13,11 @@
                      , puertaderechaderecha1, puertaderechaderecha2, puertaderechaderecha3, isla1, isla2, isla3, isla4
                         , muroDeCarne1, muroDeCarne2, muroDeCarne3;
 
+        Game myGame;
+        List<Enemy> enemies = new List<Enemy>();
+        List<Objects> objects = new List<Objects>();
 
-        public Level()
+        public Level(Game g)
         {
             tileWidth = 16;
             tileHeight = 16;
@@ -21,6 +25,8 @@
             levelHeight = 38;
             leftMargin = 80;
             topMargin = 50;
+            myGame = g;
+           
 
             levelDescription = new string[38]
             {
@@ -29,25 +35,25 @@
                 "->                                                                                            <--->                        <-->                     <-",
                 "->                                                                                            <--->                        <-->                     <-",
                 "->                                                                                            <--->                        <-->                     <-",
-                "->                                                                                            <--->                        <-->                     <-",
+                "->                                   &                                                        <--->                        <-->                     <-",
                 "->                                                                                            <--->                        <-->                     <-",
                 "->                                                                                            <--->       q11w             <-->                     <-",
                 "->                                                                                            <--->       <-->             <-->                     <-",
                 "->                                                                                            <--->       <-->             <-->                     <-",
                 "->                                                                                        q1112---311111112-->             <-->                     <-",
-                "->                                                                                        <------------------>             <-->                     <-",
+                "->                                                       &                                <------------------>             <-->                     <-",
                 "->                                                                                        <------------------>             <-->                     <-",
                 "->                                                                                        e__________________r             <-->                     <-",
                 "->                                                                                                                         <-->                     <-",
                 "->                                                                                                                         <-->                     <-",
                 "->                                                                                                                         <-->                     <-",
-                "->                                                                                                                         <-->                     <-",
-                "->                                                                                                                         <-->                     <-",
+                "->                                &                                                                                        <-->                     <-",
+                "->                                                                                                              ª          <-->                     <-",
                 "->                                                                                                                         <-->                     <-",
                 "->                                                                                                                         <-->                     <-",
                 "->                                                                                                          q111111111111112-->                     <-",
-                "->        q11w                                                                                              <----------------->        q11w         <-",
-                "->        <-->                                                                                              <----------------->        <-->         <-",
+                "->        q11w                                 @                                                            <----------------->        q11w         <-",
+                "->   º    <-->                                                                                              <----------------->        <-->         <-",
                 "->        <-->                                                                                              <----------------->        <-->         <-",
                 "-3111111112-->                      q1111111111111111111111111w                                             <-----------------3111111112-->         <-",
                 "------------->                      <------------------------->                                             9cvvvvvvvvv<------------------>         <-",
@@ -56,11 +62,11 @@
                 "->                                  <------------------------->                                                        <---->                       <-",
                 "->                                  <------------------------->                                                        e____r                       <-",
                 "->                                  <------___________________r                                                                                     <-",
-                "->                                  <----->                                                                                                         <-",
-                "->                  q11w            <----->                                                                                                         <-",
-                "->                  <-->            <----->                                                                                                         <-",
-                "->                  <-->            <----->                                                                                                         <-",
-                "-31111111111111111112--31111111111112-----31111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111112-",
+                "->                    º             <----->                                                                                                         <-",
+                "->      !           q111w     ª     <----->         º                                !                                                              <-",
+                "->                  <--->           <----->                                                                                                         <-",
+                "->                  <--->           <----->                                                                                                         <-",
+                "-31111111111111111112---3111111111112-----31111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111112-",
                 "------------------------------------------------------------------------------------------------------------------------------------------------------",
             };
             esquinainferiorderecha = new Image("data\\EsquinaInferiorDerecha.png");
@@ -93,6 +99,9 @@
             //Partiendo desde los laterales 
             isla3 = new Image("data\\IslaAbajo3.png");
             isla4 = new Image("data\\IslaAbajo4.png");
+
+
+            DrawEnemies();
         }
 
         public void DrawOnHiddenScreen()
@@ -129,8 +138,55 @@
                         case 'v': Hardware.DrawHiddenImage(muroDeCarne1, xPos, yPos); break;
                         case 'b': Hardware.DrawHiddenImage(muroDeCarne2, xPos, yPos); break;
                         case 'n': Hardware.DrawHiddenImage(muroDeCarne3, xPos, yPos); break;
+                        //Enemigos
+                        case '@':
+                            Hardware.DrawHiddenImage(fondo, xPos, yPos); break;
+                        case '&':
+                            Hardware.DrawHiddenImage(fondo, xPos, yPos); break;
+                        case '!':
+                            Hardware.DrawHiddenImage(fondo, xPos, yPos); break;
+                        case 'ª':
+                            Hardware.DrawHiddenImage(fondo, xPos, yPos); break;
+                        case 'º':
+                            Hardware.DrawHiddenImage(fondo, xPos, yPos); break;
                     }
                 }
+        }
+
+        public void DrawEnemies()
+        {
+            for (int row = 0; row < levelHeight; row++)
+                for (int col = 0; col < levelWidth; col++)
+                {
+                    int xPos = leftMargin + col * tileWidth;
+                    int yPos = topMargin + row * tileHeight;
+                    switch (levelDescription[row][col])
+                    {
+                        //Enemigos
+                        case '@':
+                            enemies.Add(new RedVirus(xPos, yPos, myGame)); break;
+                        case '&':
+                            enemies.Add(new EnemyEye(xPos, yPos, myGame)); break;
+                        case '!':
+                            enemies.Add(new YellowVirus(xPos, yPos, myGame)); break;
+                        case 'ª':
+                            enemies.Add(new BlueVirus(xPos, yPos, myGame)); break;
+                        //Objetos
+                        case 'º':
+                            objects.Add(new Heart(xPos, yPos,myGame)); break;
+                    }
+                }
+        }
+
+
+        public List<Enemy> GetEnemies ()
+        {
+            return enemies;
+        }
+
+        public List<Objects> GetObjects ()
+        {
+            return objects;
         }
 
         public bool IsValidMove(int xMin, int yMin, int xMax, int yMax)
@@ -140,7 +196,8 @@
                 {
                     char tileType = levelDescription[row][col];
                     // If we don't need to check collisions with this tile, we skip it
-                    if ((tileType == ' '))  // Empty space  
+                    if ((tileType == ' ')||(tileType == '&') || tileType == '@'|
+                        (tileType == '!')||(tileType == 'ª')|| (tileType == 'º'))
                         continue;
                     // Otherwise, lets calculate its corners and check rectangular collisions
                     int xPos = leftMargin + col * tileWidth;

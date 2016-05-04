@@ -8,13 +8,12 @@ namespace DamGame
 {
     class Objects : Sprite
     {
+        public virtual void drawHeart()
+        {
+           
+        }
         public Objects(int newX, int newY)
         {
-
-            x = newX;
-            y = newY;
-            width = 50;
-            height = 45;
         }
     }
 }

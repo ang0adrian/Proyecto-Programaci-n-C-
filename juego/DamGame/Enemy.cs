@@ -2,6 +2,9 @@
 {
     class Enemy : Sprite
     {
+        //Este string es apra saber que tipo de enemigo es 
+        protected string type = "";
+
         public Enemy(int newX, int newY)
         {
             LoadSequence(LEFT, 
@@ -27,7 +30,7 @@
         public override void Move()
         {
             // TO DO: Avoid magic numbers
-            if ((x > 1024 - width) || (x < 0))
+            if ((x > 2409 - width) || (x < 0))
                 xSpeed = -xSpeed;
             x = (short)(x + xSpeed);
 
@@ -38,5 +41,6 @@
             
             NextFrame();
         }
+
     }
 }

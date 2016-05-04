@@ -1,5 +1,5 @@
 ﻿using System;
-
+using System.Collections.Generic;
 namespace DamGame
 {
     class Game
@@ -7,53 +7,41 @@ namespace DamGame
         private Objects items;
         private Font font18;
         private Player player;
-        private Enemy[] enemies;
+        List<Enemy> enemies = new List<Enemy>();
+        List<Objects> objects = new List<Objects>();
         private Level currentLevel;
         private bool finished;
-        private int numEnemies;
-        private int numItems;
-        private int lives = 0;
+        //private int numEnemies;
 
+        long score = 0;
+
+        private int numItems;
+
+        private byte lives = 0;
+
+//Shot --------------------------------------------------
+        private Shot myShot;
+        private char direction;
+//----------------------------------------------------------
         public Game()
         {
             font18 = new Font("data/Joystix.ttf", 18);
             player = new Player(this);
 
 
-            // Objetos
             Random rnd = new Random();
-            //numItems = 1;
-            //items = new Objects[numItems];
-            //for (int i = 0; i < numEnemies ; i++)
-            //{
-            //    items[i] = new Heart(300,200, this);
-            //    items[i].Show();
-            //}
+
             items= new Heart(300,200,this);
-            //Enemigos
-            numEnemies = 6;
-            enemies = new Enemy[numEnemies];
-            for (int i = 0; i < numEnemies-2; i++)
-            {
-                if ((i <= 2)&&(i!=0))
-                {
-                    enemies[i] = new YellowVirus(rnd.Next(200, 800), rnd.Next(50, 600), this);
-                    enemies[i].SetSpeed(rnd.Next(1, 5), 0);
-                }
-                else
-                {
-                    enemies[i] = new RedVirus(rnd.Next(200, 800), rnd.Next(50, 600),this);
-                    enemies[i].SetSpeed(rnd.Next(1, 5), 0);
-                }
-                enemies[4] = new BlueVirus(rnd.Next(200, 800), rnd.Next(50, 600), this);
-                enemies[4].SetSpeed(rnd.Next(1, 5), 0);
 
-                enemies[5] = new EnemyEye(rnd.Next(200, 800), rnd.Next(50, 600), this);
-                enemies[5].SetSpeed(rnd.Next(1, 5), 0);
-            }
+            currentLevel = new Level(this);
 
-            currentLevel = new Level();
+            enemies = currentLevel.GetEnemies();
+            objects = currentLevel.GetObjects();
+
             finished = false;
+            myShot = new Shot(this, 0, 0, 0);
+            myShot.Hide();
+            direction = 'R';
         }
 
 
@@ -63,7 +51,7 @@ namespace DamGame
             Hardware.ClearScreen();
 
             currentLevel.DrawOnHiddenScreen();
-            Hardware.WriteHiddenText("Score: ",
+            Hardware.WriteHiddenText("Score: "+ score,
                 40, 7,
                 0xCC, 0xCC, 0xCC,
                 font18);
@@ -75,8 +63,15 @@ namespace DamGame
                 font18);
 
             player.DrawOnHiddenScreen();
-            for (int i = 0; i < numEnemies; i++)
+
+            for (int i = 0; i < enemies.Count; i++)
                 enemies[i].DrawOnHiddenScreen();
+
+            for (int i = 0; i < objects.Count; i++)
+                objects[i].drawHeart();
+
+            myShot.DrawOnHiddenScreen();
+
             Hardware.ShowHiddenScreen();
         }
 
@@ -87,33 +82,62 @@ namespace DamGame
             if (Hardware.KeyPressed(Hardware.KEY_UP))
             {
                 if (Hardware.KeyPressed(Hardware.KEY_RIGHT))
+                {
                     player.JumpRight();
+                    //Guardo direccion de disparo
+                    direction = 'R';
+                    //--------------------------------------------------------
+                }
                 else
                 if (Hardware.KeyPressed(Hardware.KEY_LEFT))
+                {
                     player.JumpLeft();
+//Guardo direccion de disparo
+                    direction = 'L';
+//--------------------------------------------------------
+                }
                 else
                     player.Jump();
             }
 
             else if (Hardware.KeyPressed(Hardware.KEY_RIGHT))
+            {
                 player.MoveRight();
+//Guardo direccion de disparo
+                direction = 'R';
+                Console.WriteLine(player.GetX());
+//--------------------------------------------------------
+            }
 
             else if (Hardware.KeyPressed(Hardware.KEY_LEFT))
+            {
                 player.MoveLeft();
+//Guardo direccion de disparo
+                direction = 'L';
+ //--------------------------------------------------------
+            }
 
             //if (Hardware.KeyPressed(Hardware.KEY_DOWN))
             //    player.MoveDown();
+
+             if ((Hardware.KeyPressed(Hardware.KEY_SPC)) && (!myShot.IsVisible()))
+            {
+                if (direction == 'R')
+                    myShot = new Shot(this, player.GetX() + 20, player.GetY(), 10);
+                else
+                    myShot = new Shot(this, player.GetX(), player.GetY(), -10);
+            }
 
             if (Hardware.KeyPressed(Hardware.KEY_ESC))
                 finished = true;
         }
 
-
         // Move enemies, animate background, etc 
         public void MoveElements()
         {
+            myShot.Move();
             player.Move();
-            for (int i = 0; i < numEnemies; i++)
+            for (int i = 0; i < enemies.Count; i++)
                 enemies[i].Move();
         }
 
@@ -121,6 +145,51 @@ namespace DamGame
         // Check collisions and apply game logic
         public void CheckCollisions()
         {
+            for (int i = 0; i < enemies.Count; i++)
+                if (enemies[i].CollisionsWith(myShot))
+                {
+                    enemies[i].Hide();
+
+                    //Doy puntpos segun el enemigo
+                    string [] typeEnemi = Convert.ToString(enemies[i].GetType()).Split('.');
+
+                    Console.WriteLine(typeEnemi[1]);
+                    switch (typeEnemi[1])
+                    {
+                        case  "RedVirus":
+                            score += 30;
+                            break;
+                        case "BlueVirus":
+                            score += 10;
+                            break;
+                        case "YellowVirus":
+                            score += 50;
+                            break;
+                        case "EnemyEye":
+                            score += 100;
+                            break;
+
+
+                    }
+                    myShot.Hide();
+                }
+
+            for (int i = 0; i < objects.Count; i++)
+                if (objects[i].CollisionsWith(player))
+                {
+                    objects[i].Hide();
+
+                    //Distingo que tipo de onjeto es 
+                    string[] typeObject = Convert.ToString(objects.GetType()).Split('.');
+
+                    Console.WriteLine(typeObject[1]);
+                    switch (typeObject[1])
+                    {
+                        case "Heart":
+                            lives += 1;
+                            break;
+                    }
+                }
 
             if (lives<0)
             {
@@ -135,7 +204,7 @@ namespace DamGame
               //  }
 
             //Comprobar Colisiones con los enemigos
-            for (int i = 0; i < numEnemies; i++)
+            for (int i = 0; i < enemies.Count; i++)
                 if (enemies[i].CollisionsWith(player))
                 {
                     player.RestartPosition(lives);

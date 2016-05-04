@@ -9,23 +9,30 @@ namespace DamGame
     class Heart : Objects
     {
         protected Game myGame;
+        Image Corazon1Vida = new Image("data/Objetos/Corazon/Corazon1Vida.png");
 
-        
+        public override void drawHeart  ()
+        {
+            Hardware.DrawHiddenImage(Corazon1Vida, x, y);
+        }
+
+        protected int x = 0;
+        protected int y = 0;
+        protected int height = 0;
+        protected int width = 0;
 
         //Constructor no coje el tipo game;
         public Heart(int newX, int newY, Game g): base (200,200)
         {
-            Image Corazon1Vida = new Image("data/Objetos/Corazon/Corazon1Vida.png");
-        
+            LoadSequence(LEFT,
+                new string[]  { "data/Objetos/Corazon/Corazon1Vida.png" });
             x = newX;
             y = newY;
-            xSpeed = 0;
-            ySpeed = 0;
             width = 15;
             height = 16;
-            myGame=g;
-        
-            Hardware.DrawHiddenImage(Corazon1Vida, 100, 200);
+            myGame = g;
+
+
         }
 
     }

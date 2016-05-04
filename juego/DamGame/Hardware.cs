@@ -93,6 +93,9 @@ public class Hardware
 
         Sdl.SDL_BlitSurface(textoComoImagen, ref origen,
             hiddenScreen, ref dest);
+
+        //Esto libera memoria
+        Sdl.SDL_FreeSurface(textoComoImagen);
     }
 
     public static void ShowHiddenScreen()
